@@ -97,7 +97,7 @@ from pyspark import SparkContext
 sc = SparkContext("local", "App Name", pyFiles=['MyFile.py', 'lib.zip', 'app.egg'])
 ```
 
-#TP4
+# TP4
 ```
 from pyspark.mllib.fpm import FPGrowth
 data = sc.textFile("/tmp/sample_fpgrowth.txt")
@@ -116,7 +116,7 @@ result = model.freqItemsets().collect()
 for item in result: print(item)
 ```
 
-#TP5
+# TP5
 
 *Créer le fichier
 ```
@@ -159,17 +159,16 @@ print('Learned classification tree model:')
 print(model)
 ```
 
-#TP9
+# TP9
 ```
-from pyspark.mllib.regression import LabeledPoint, LinearRegressionWithSGD,
-LinearRegressionModel
+from pyspark.mllib.regression import LabeledPoint, LinearRegressionWithSGD,LinearRegressionModel
 ```
 * charger et préparer les données
 ```
-def parsePoint(line):
-values = [float(x) for x in line.replace(',', ' ').split(' ')]
-return LabeledPoint(values[0], values[1:])
-data = sc.textFile("data/mllib/ridge-data/lpsa.data")
+>>> def parsePoint(line):
+...     values = [float(x) for x in line.replace(',', ' ').split(' ')]
+...     return LabeledPoint(values[0], values[1:])
+data = sc.textFile("/tmp/lpsa.data")
 parsedData = data.map(parsePoint)
 ```
 * créer le modèle
@@ -182,10 +181,10 @@ model = LinearRegressionWithSGD.train(parsedData, iterations=100)
 VP = parsedData.map(lambda p: (p.label, model.predict(p.features)))
 MSE = VP.map(lambda (v, p): (v - p)**2) .reduce(lambda x, y: x + y) / data.count()
 print("Mean Squared Error = " + str(MSE))
+Mean Squared Error = 6.207597210613578
 ```
 * Sauvegarder le modèle
 ```
-model.save(sc, "target/tmp/pythonLinearRegressionWithSGDModel")
-OurModel = LinearRegressionModel.load(sc,
-"target/tmp/pythonLinearRegressionWithSGDModel")
+model.save(sc, "/tmp/pythonLinearRegressionWithSGDModel")
+OurModel = LinearRegressionModel.load(sc,"/tmp/pythonLinearRegressionWithSGDModel")
 ```
