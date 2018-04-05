@@ -75,7 +75,7 @@ data = MLUtils.loadLibSVMFile(sc, '/tmp/libsvm.txt.txt').cache()
 
 ```
 
-*préparer les données
+* préparer les données
 ```
 splitedData = data.map(lambda line: array([float(x) for x in line.split(',')]))
 splitedData.take(6)
@@ -105,13 +105,13 @@ splitedData= data.map(lambda line: line.strip().split(','))
 splitedData.take(6)
 ```
 
-*Appliquer FP-Growth
+* Appliquer FP-Growth
 ```
 model = FPGrowth.train(splitedData, minSupport=0.2, numPartitions=10)
 result = model.freqItemsets().collect()
 ```
 
-*Afficher le résultat
+* Afficher le résultat
 ```
 for item in result: print(item)
 ```
@@ -130,22 +130,22 @@ from pyspark.mllib.regression import LabeledPoint
 from pyspark.mllib.tree import DecisionTree 
 from pyspark.mllib.util import MLUtils
 ```
-*charger les données
+* charger les données
 ```
 data = MLUtils.loadLibSVMFile(sc, '/tmp/sample_libsvm_data.txt').cache()
 ```
-*Appliquer les arbres de décisions
+* Appliquer les arbres de décisions
 ```
 model = DecisionTree.trainClassifier(data, numClasses=2,
 categoricalFeaturesInfo={},
 impurity='gini', maxDepth=5)
 ```
 
-*Afficher le modèle
+* Afficher le modèle
 ```
 print(model.toDebugString())
 ```
-*Evaluer le résultat
+* Evaluer le résultat
 ```
 predictions = model.predict(data.map(lambda x: x.features))
 predictions.collect()
