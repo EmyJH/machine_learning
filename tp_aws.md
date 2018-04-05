@@ -236,6 +236,8 @@ movieRecs = model.recommendForAllItems(10)
 ```
 
 # TP 12
+https://spark.apache.org/docs/2.1.0/ml-classification-regression.html#binomial-logistic-regression
+
 ```python
 
 ```
