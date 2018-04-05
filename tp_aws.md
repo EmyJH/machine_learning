@@ -118,14 +118,13 @@ for item in result: print(item)
 
 # TP5
 
-*Créer le fichier
+* Créer le fichier
 ```
 sudo nano sample_libsvm_data.txt
 hdfs dfs -copyFromLocal /home/spark/sample_libsvm_data.txt /tmp/sample_libsvm_data.txt
-
-```
 ```
 
+* démarrer pyspark
 ```
 from pyspark.mllib.regression import LabeledPoint
 from pyspark.mllib.tree import DecisionTree 
